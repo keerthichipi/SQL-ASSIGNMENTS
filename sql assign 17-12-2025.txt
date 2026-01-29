@@ -1,0 +1,158 @@
+1) create table dept(
+deptno number primary key,
+dname varchar2(20),
+loc varchar2(20)
+);
+
+create table employee(
+empno number primary key,
+ename varchar2(20),
+salary number,
+job varchar2(20)
+hiredate date,
+comm number,
+deptno number,
+constraint fk_dept foregin key(deptno)references dept(deptno)
+);
+
+insert into dept values(10,'accounting','new york');
+insert into dept values(20,'research','dallas');
+insert into dept values(30.'sales','chicago');
+
+
+insert into employee values(7369,'kings',30000,'clerk',date '1980-12-17',null,20);
+insert into employee values(7499,'allen',40000,'salesmam',date '1981-02-20',500,30);
+insert into employee values(7566,'jones',50000,'manager',date '1981-04-02',null,20);
+
+
+2)select *
+from employee
+where ename like'k%s';
+
+
+3) select empno,ename
+from employee
+where comm is not null;
+
+4)select *
+from employee
+where hiredate < date '1980-01-01'
+0r hiredate  <date '1988-12-31';
+
+
+5) select *
+from employee
+where ename like'a%'
+or ename like 'e%'
+or ename like 'i%'
+or enmae like 'o%'
+or enmae like 'u%';
+
+6)select *
+from employee
+where job='clerk' and salary>3000;
+
+7) DDL: DATA DEFINATION LANGUAGE  
+        it is used to define database structure 
+syntax:
+      create table table_name(...);
+      alter table table_name add column datatype;
+      drop table table_name;
+
+DML : DATA MANIPULATION LANGUAGE
+       IT IS USED TO MANIPULATE THE DATE
+syntax:
+      insert into table values(...);  
+      update table set column=value where condition;
+      delete from table where condition;
+
+DQL : DATA QUERY LANGUAGE
+       it is used to fetch the data
+syntax:
+      select column  
+      from employee
+      where condition;
+
+8) database management system 
+    it is used to store the data in file format.
+    it has no relationships and less secure.
+example :file system
+
+retional databse management system
+     it is used to stores the data in table format.
+     it is used relationship through foregin key,primarykey.
+     it is more secure and example MySQL and oracle.
+
+9)where
+   it is used to filter row
+   it is used before groupby
+syntax:
+     select*
+     from employee
+     where salary>3000;
+
+having
+    it is used to filter the group
+    it is used  after groupby
+
+syntax:
+       select deptno,count(*)
+       from employee
+       group by deptno
+       having count(*)>3;
+
+
+10)SQL: Structure query language 
+         it is used to write query and standard.it is a query language
+   MYSQL: Database software that uses sql
+           it is used retional database management system.it is used to store data and it is product.
+
+
+11) primary key is used to uniquely indifies the row.it will not allowed duplicate values and it cannot be entered null values.
+    foregin key  is used to refers the primary key of another table.it will allowed dulicate values and it can be entered null values while if it is mandatory.
+
+
+12) select ename 
+from employee
+where salary*12+(sal*12+10/100)>3000;
+
+13) select ename ,salary*12(salary*12+10/100)
+from employee
+where mgr=7566;
+
+14)select ename,job,salary
+from emplpyee
+where job in('clerk','saleman','analyst')and salary>2500;
+
+15)select*
+from employee
+where hiredate like'%-02-%' (or)
+where month (hiredate)='02';
+
+
+16) select count(*),dno
+from employee
+group by detno;
+
+17)select max(salary)
+from employee
+where job!='president'
+group by job;
+
+
+18) select count(*),sum(salary),avg(salary),deptno
+from employee
+groupby;
+
+
+19) select count(*),deptno
+from employee
+groupby deptno
+having count(*)>3;
+
+
+20)select count(*),deptno,max(salary),min(salary)
+from employee
+where deptno!=20 and salary>2000
+group by deptno
+having count(*)>3;
