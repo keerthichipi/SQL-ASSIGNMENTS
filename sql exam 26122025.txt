@@ -1,0 +1,20 @@
+select*
+from students;
+
+
+insert into students(id ,name ,age)values(1,"alice", 20);
+
+3)  update students set age=21 where id=1;
+
+
+4)delete from students where age>18;
+
+5) select count* from students;
+
+6)create table courses( course_id (int),course_name varchar(50),duration (int));
+
+7)create table enrollment(enroll_id(int) primary key, student_id(int),course_id(int));
+
+8)alter table enrollment add foreign key student_id references student(id);
+
+9) create table teachers(teacher_id(int), teacher_name(varchar(50) unique);
