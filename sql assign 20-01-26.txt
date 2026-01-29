@@ -1,0 +1,309 @@
+50) SELECT *
+FROM emp
+WHERE job = 'SALESMAN'
+AND deptno = 20
+AND comm > (SELECT comm FROM emp WHERE ename = 'SMITH')
+AND hiredate > (SELECT hiredate FROM emp WHERE ename = 'KING');
+
+
+51)SELECT ename
+FROM emp
+WHERE sal > (SELECT sal FROM emp WHERE ename = 'SMITH')
+AND deptno = (SELECT deptno FROM dept WHERE dname = 'SALES');
+
+52)SELECT e.*
+FROM emp e
+JOIN dept d ON e.deptno = d.deptno
+WHERE e.job = 'ANALYST'
+AND d.loc = 'DALLAS';
+
+53)SELECT e.*
+FROM emp e
+JOIN dept d ON e.deptno = d.deptno
+WHERE d.loc LIKE '%S';
+
+54)SELECT ename, sal*12 AS annual_salary
+FROM emp
+WHERE sal*12 > ALL (SELECT sal*12 FROM emp WHERE job='MANAGER');
+
+
+55)SELECT *
+FROM emp
+WHERE hiredate > ALL (SELECT hiredate FROM emp WHERE job='SALESMAN');
+
+56)SELECT *
+FROM emp
+WHERE hiredate > ALL (SELECT hiredate FROM emp WHERE job='SALESMAN');
+
+
+57)SELECT deptno, COUNT(*) AS emp_count
+FROM emp
+GROUP BY deptno;
+
+
+58)SELECT e.ename, d.dname
+FROM emp e
+JOIN dept d ON e.deptno = d.deptno;
+
+59)SELECT *
+FROM emp
+WHERE sal > (SELECT sal FROM emp WHERE ename='ALLEN')
+AND sal > (SELECT sal FROM emp WHERE ename='SMITH');
+
+60)SELECT *
+FROM emp
+WHERE sal > (SELECT sal*1.10 FROM emp WHERE ename='ALLEN');
+
+
+61)SELECT DISTINCT d.dname
+FROM emp e
+JOIN dept d ON e.deptno = d.deptno
+WHERE e.hiredate > (SELECT hiredate FROM emp WHERE ename='ALLEN')
+AND d.dname = 'SALES';
+
+62)SELECT e.hiredate, e.mgr
+FROM emp e
+JOIN dept d ON e.deptno = d.deptno
+WHERE d.loc = 'BOSTON';
+SELECT e.ename, e.job, d.loc
+FROM emp e
+JOIN dept d ON e.deptno = d.deptno
+WHERE e.job='MANAGER'
+AND d.loc='CHICAGO';
+
+63)SELECT ename, job
+FROM emp
+WHERE job IN (
+    SELECT job
+    FROM emp
+    GROUP BY job
+    HAVING COUNT(*) = 2
+)
+AND (ename LIKE 'S%' OR ename LIKE 'P%');
+
+
+64)SELECT e.deptno, COUNT(*) AS emp_count
+FROM emp e
+JOIN dept d ON e.deptno = d.deptno
+WHERE d.loc = 'CHICAGO'
+GROUP BY e.deptno;
+
+
+65)SELECT e.ename, e.job, d.loc
+FROM emp e
+JOIN dept d ON e.deptno = d.deptno
+WHERE e.job='MANAGER'
+AND d.loc='CHICAGO';
+
+
+66)SELECT e.*
+FROM emp e
+JOIN dept d ON e.deptno = d.deptno
+WHERE d.dname IN ('SALES','RESEARCH')
+AND e.empno IN (
+    SELECT mgr
+    FROM emp
+    GROUP BY mgr
+    HAVING COUNT(*) >= 2
+);
+
+
+67)SELECT DISTINCT d.loc
+FROM emp e
+JOIN dept d ON e.deptno = d.deptno
+WHERE TO_CHAR(e.hiredate,'YY')='81';
+
+68)SELECT ename
+FROM emp
+WHERE sal > ALL (SELECT sal FROM emp WHERE job='ANALYST');
+
+
+69)SELECT ename
+FROM emp
+WHERE sal < ANY (SELECT sal FROM emp WHERE job='MANAGER');
+
+
+70)SELECT ename
+FROM emp
+WHERE hiredate > ALL (SELECT hiredate FROM emp WHERE deptno=30);
+
+
+71)SELECT e.*
+FROM emp e
+JOIN dept d ON e.deptno = d.deptno
+WHERE d.loc IN ('NEWYORK','DALLAS');
+
+72)SELECT DISTINCT d.loc
+FROM emp e
+JOIN dept d ON e.deptno = d.deptno
+WHERE e.deptno=20
+AND e.comm IS NOT NULL;
+
+
+73)SELECT e.*
+FROM emp e
+JOIN dept d ON e.deptno = d.deptno
+WHERE e.job = (SELECT job FROM emp WHERE ename='JONES')
+AND d.loc='CHICAGO';
+
+74)SELECT ename
+FROM emp
+WHERE sal > (SELECT sal FROM emp WHERE ename='SCOTT');
+
+75)SELECT deptno, COUNT(*) AS emp_count, AVG(sal) AS avg_sal
+FROM emp
+WHERE sal > 3000
+GROUP BY deptno;
+
+76)SELECT ename, sal
+FROM emp
+WHERE sal < (SELECT sal FROM emp WHERE ename='CLARK')
+AND sal > (SELECT sal FROM emp WHERE ename='ALLEN');
+
+
+77)SELECT *
+FROM emp
+WHERE deptno=30
+AND job = (SELECT job FROM emp WHERE ename='JAMES');
+
+
+78)SELECT ename
+FROM emp
+WHERE ename LIKE 'B%'
+AND job = (SELECT job FROM emp WHERE ename='CLARK');
+
+79)SELECT d.loc, d.dname
+FROM emp e
+JOIN dept d ON e.deptno=d.deptno
+WHERE e.sal=1250;
+
+
+80)SELECT DISTINCT d.dname, d.loc
+FROM emp e
+JOIN dept d ON e.deptno=d.deptno
+WHERE e.ename LIKE '%M%';
+
+
+81)SELECT deptno
+FROM emp
+WHERE ename LIKE '%A%'
+GROUP BY deptno
+HAVING COUNT(*) >= 4;
+
+82)SELECT ename, sal
+FROM emp
+WHERE job='SALESMAN';
+
+
+83)SELECT ename
+FROM emp
+WHERE sal > 2000
+AND TO_CHAR(hiredate,'YYYY') BETWEEN '1980' AND '1986'
+AND REGEXP_LIKE(ename,'[AEIOU]$');
+
+
+84)SELECT ename, hiredate
+FROM emp
+WHERE TO_CHAR(hiredate,'YYYY') BETWEEN '1982' AND '1985'
+AND sal BETWEEN 1000 AND 2800;
+
+
+85)SELECT loc, COUNT(*) AS cnt
+FROM dept
+GROUP BY loc
+HAVING COUNT(*) > 1;
+
+
+86)SELECT deptno, hiredate, COUNT(*) AS cnt
+FROM emp
+GROUP BY deptno, hiredate
+HAVING COUNT(*) > 1;
+
+
+87)SELECT ename
+FROM emp
+WHERE sal < (SELECT sal FROM emp WHERE ename='KING')
+AND sal < (SELECT sal FROM emp WHERE ename='FORD');
+
+88)SELECT e.*
+FROM emp e
+JOIN dept d ON e.deptno=d.deptno
+WHERE d.loc IN ('NEWYORK','CHICAGO');
+
+
+89)SELECT ename, hiredate
+FROM emp
+WHERE hiredate < ANY (SELECT hiredate FROM emp WHERE job='ANALYST');
+
+
+90)SELECT ename
+FROM emp
+WHERE sal > (SELECT sal FROM emp WHERE ename='ADAMS')
+AND deptno = (SELECT deptno FROM dept WHERE dname='RESEARCH');
+
+
+91)SELECT *
+FROM emp
+WHERE job='MANAGER'
+AND ename LIKE '%K_'
+AND sal BETWEEN 2500 AND 2851;
+
+
+92)SELECT e.*, e.sal*12 AS annual_salary
+FROM emp e
+JOIN dept d ON e.deptno=d.deptno
+WHERE d.loc='DALLAS';
+
+93)SELECT e.ename
+FROM emp e
+JOIN dept d ON e.deptno=d.deptno
+WHERE e.sal > (SELECT sal FROM emp WHERE ename='TURNER')
+AND e.deptno=30
+AND d.loc='CHICAGO';
+
+94)SELECT ename
+FROM emp
+WHERE sal < ANY (SELECT sal FROM emp WHERE job='ANALYST');
+
+95)SELECT DISTINCT d.dname
+FROM emp e
+JOIN dept d ON e.deptno=d.deptno
+WHERE e.mgr = (SELECT empno FROM emp WHERE ename='BLAKE');
+
+
+96)SELECT hiredate
+FROM emp
+WHERE hiredate < (SELECT hiredate FROM emp WHERE ename='MARTIN')
+AND deptno = (SELECT deptno FROM dept WHERE dname='SALES');
+
+
+97)SELECT DISTINCT deptno
+FROM emp
+WHERE job='MANAGER'
+AND deptno = (SELECT deptno FROM dept WHERE dname='SALES');
+
+
+98)SELECT DISTINCT d.loc
+FROM emp e
+JOIN dept d ON e.deptno=d.deptno
+WHERE e.ename NOT LIKE 'S%'
+AND TO_CHAR(e.hiredate,'YYYY') BETWEEN '1980' AND '1982';
+
+
+99)SELECT job,
+AVG(sal) AS avg_sal,
+MAX(sal) AS max_sal,
+SUM(sal) AS total_sal
+FROM emp
+WHERE job <> 'SALESMAN'
+GROUP BY job;
+
+100)SELECT ename
+FROM emp
+WHERE deptno = 20
+AND sal BETWEEN 1099 AND 1500
+AND TO_CHAR(hiredate,'YYYY') BETWEEN '1985' AND '1988'
+AND (LENGTH(ename) - LENGTH(REPLACE(ename,'A',''))) = 2;
+
+
+101)
