@@ -1,0 +1,5 @@
+50.WAQTD ALL THE DEATILS OF EMPLOYEES WORKING AS SALESMAN IN THE DEPT 20 ABD EARNING COMM MORE THAN SMITH AND HIRED AFTER KING.
+        
+               select *
+                    from emp1
+                    where job=salesman and dept=20 and comm=(select comm from emp1 where ename='smith' ) and hiredate=(select hiredate from                   		    emp1 where ename='king');
