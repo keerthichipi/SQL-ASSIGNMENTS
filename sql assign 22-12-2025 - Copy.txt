@@ -1,0 +1,29 @@
+1) select empno, ename, salary, deptno,
+   rank() over(partition by deptno order by salary desc) as salary_rank
+   from emp;
+
+
+2) select empno, ename, salary, deptno,
+    sum(salary) over (partition by deptno order by salary rows between unbounded preceding and current row) as cum_salary
+    from emp;
+
+3) select empno, ename ,salary ,deptno,
+      avg(salary) over (partition by deptno) as avg_dept_salary
+      from emp;
+
+4) select empno ,ename,salary,deptno,
+   max(salary) over (partition by deptno) as max_dept_salary
+   from emp;
+
+
+5) select empno, ename,salary,deptno,
+    row_number() over (order by hiredate) as rn
+    from emp;
+
+
+
+
+
+
+
+
